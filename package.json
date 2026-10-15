@@ -1,0 +1,43 @@
+{
+  "name": "ardberg-agent",
+  "private": true,
+  "version": "1.0.0",
+  "bin": {
+    "ardberg": "bin/ardberg.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "demo/",
+    "examples/",
+    "specs/README.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "description": "Playwright testing agent with validated planning, Jev triage, controlled corrections, and reports",
+  "scripts": {
+    "agent": "node src/cli.js",
+    "demo": "node src/cli.js demo",
+    "demo:failure": "node src/cli.js demo --scenario failure",
+    "demo:repair": "node src/cli.js demo --scenario repair",
+    "demo:retry": "node src/cli.js demo --scenario transient",
+    "start": "node src/cli.js website",
+    "test:target": "node src/cli.js website",
+    "test:website": "node src/cli.js website",
+    "test:login": "node src/cli.js target",
+    "test:discovery": "node --test --test-concurrency=1 test/discovery.test.js",
+    "test": "node --test test/unit.test.js",
+    "test:integration": "node --test --test-concurrency=1 test/integration.test.js",
+    "eval": "node src/cli.js eval",
+    "doctor": "node src/cli.js doctor"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.63.0",
+    "ajv": "^8.20.0"
+  },
+  "devDependencies": {
+    "ardberg-agent": "file:dist/ardberg-agent-1.0.0.tgz"
+  }
+}

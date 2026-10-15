@@ -1,0 +1,49 @@
+name: Configured target tests
+on:
+  workflow_dispatch:
+    inputs:
+      context:
+        description: Committed application context path (configure repository/startup for a local app)
+        default: examples/app.context.json
+        required: true
+      plan:
+        description: Previously reviewed and committed plan path
+        default: examples/login.plan.json
+        required: true
+      evaluator:
+        type: choice
+        options: [local, jev, llm]
+        default: local
+permissions:
+  contents: read
+jobs:
+  target:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run reviewed tests and analyze failures
+        run: node src/cli.js run --context "$AGENT_CONTEXT" --plan "$AGENT_PLAN" --evaluator "$EVALUATOR" --max-attempts 1
+        env:
+          AGENT_CONTEXT: ${{ inputs.context }}
+          AGENT_PLAN: ${{ inputs.plan }}
+          EVALUATOR: ${{ inputs.evaluator }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+          JEV_MODEL: jev-latest
+          TARGET_VALID_EMAIL: ${{ secrets.TARGET_VALID_EMAIL }}
+          TARGET_VALID_PASSWORD: ${{ secrets.TARGET_VALID_PASSWORD }}
+          TARGET_INVALID_PASSWORD: ${{ secrets.TARGET_INVALID_PASSWORD }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: target-reports
+          path: runs/
+          retention-days: 7

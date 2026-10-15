@@ -1,0 +1,9 @@
+[
+  {"id":"missing-browser","expected":{"category":"ENVIRONMENT","retry":false},"failure":{"failureId":"case-1","candidateHash":"fixture","errors":[{"message":"browserType.launch: Executable doesn't exist"}],"evidence":null}},
+  {"id":"missing-control","expected":{"category":"SELECTOR","retry":false},"failure":{"failureId":"case-2","candidateHash":"fixture","errors":[{"message":"Timeout: waiting for locator('#old-login')"}],"evidence":{"network":[],"elements":[]}}},
+  {"id":"assertion","expected":{"category":"ASSERTION","retry":false},"failure":{"failureId":"case-3","candidateHash":"fixture","errors":[{"message":"expect(locator).toHaveText failed; Expected: Welcome"}],"evidence":{"network":[]}}},
+  {"id":"transient-http","expected":{"category":"NETWORK","retry":true},"failure":{"failureId":"case-4","candidateHash":"fixture","errors":[{"message":"expect(page).toHaveURL failed"}],"evidence":{"network":[{"url":"http://localhost/api/login","status":503}]}}},
+  {"id":"data-missing","expected":{"category":"TEST_DATA","retry":false},"failure":{"failureId":"case-5","candidateHash":"fixture","errors":[{"message":"Missing test data environment variable TEST_EMAIL"}],"evidence":null}},
+  {"id":"timeout-unknown","expected":{"category":"TIMEOUT","retry":false},"failure":{"failureId":"case-6","candidateHash":"fixture","errors":[{"message":"Operation timed out"}],"evidence":null}},
+  {"id":"unknown","expected":{"category":"UNKNOWN","retry":false},"failure":{"failureId":"case-7","candidateHash":"fixture","errors":[{"message":"Unrecognized failure"}],"evidence":null}}
+]

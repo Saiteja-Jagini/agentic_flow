@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "requirement": "Verify successful login and invalid-password handling.",
+  "missingInformation": [],
+  "scenarios": [
+    {
+      "id": "valid-login",
+      "title": "Valid login opens the expected page",
+      "preconditions": [
+        "A dedicated valid account exists"
+      ],
+      "steps": [
+        {
+          "action": "goto",
+          "locator": null,
+          "value": "/login",
+          "secret": null
+        },
+        {
+          "action": "fill",
+          "locator": "email",
+          "value": null,
+          "secret": "TARGET_VALID_EMAIL"
+        },
+        {
+          "action": "fill",
+          "locator": "password",
+          "value": null,
+          "secret": "TARGET_VALID_PASSWORD"
+        },
+        {
+          "action": "click",
+          "locator": "submit",
+          "value": null,
+          "secret": null
+        },
+        {
+          "action": "expectURL",
+          "locator": null,
+          "value": "/dashboard",
+          "secret": null
+        }
+      ]
+    },
+    {
+      "id": "invalid-password",
+      "title": "Invalid password shows the expected error",
+      "preconditions": [
+        "An invalid password differs from the valid password"
+      ],
+      "steps": [
+        {
+          "action": "goto",
+          "locator": null,
+          "value": "/login",
+          "secret": null
+        },
+        {
+          "action": "fill",
+          "locator": "email",
+          "value": null,
+          "secret": "TARGET_VALID_EMAIL"
+        },
+        {
+          "action": "fill",
+          "locator": "password",
+          "value": null,
+          "secret": "TARGET_INVALID_PASSWORD"
+        },
+        {
+          "action": "click",
+          "locator": "submit",
+          "value": null,
+          "secret": null
+        },
+        {
+          "action": "expectText",
+          "locator": "error",
+          "value": "Invalid email or password",
+          "secret": null
+        }
+      ]
+    }
+  ]
+}

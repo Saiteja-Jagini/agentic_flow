@@ -1,0 +1,13 @@
+{
+  "baseURL": "http://127.0.0.1:3000",
+  "readinessPath": "/login",
+  "routes": ["/login", "/dashboard"],
+  "expectedTexts": ["Invalid email or password"],
+  "secretNames": ["TARGET_VALID_EMAIL", "TARGET_VALID_PASSWORD", "TARGET_INVALID_PASSWORD"],
+  "locators": {
+    "email": {"kind": "label", "value": "Email"},
+    "password": {"kind": "label", "value": "Password"},
+    "submit": {"kind": "role", "role": "button", "value": "Login", "intent": "Login"},
+    "error": {"kind": "role", "role": "alert", "value": ""}
+  }
+}
